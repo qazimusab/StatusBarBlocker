@@ -12,9 +12,6 @@ import android.view.WindowManager;
 
 public class DemoActivity extends Activity {
 
-
-    @BlockStatusBar
-    Context context;
     WindowManager manager;
     StatusBarTouchInterceptor view;
 
@@ -22,8 +19,7 @@ public class DemoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
-        context = getBaseContext();
-        /*manager = ((WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE));
+        manager = ((WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE));
 
         WindowManager.LayoutParams localLayoutParams = new WindowManager.LayoutParams();
         localLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
@@ -42,7 +38,7 @@ public class DemoActivity extends Activity {
 
         view = new StatusBarTouchInterceptor(this);
 
-        manager.addView(view, localLayoutParams);*/
+        manager.addView(view, localLayoutParams);
     }
 
     @Override
