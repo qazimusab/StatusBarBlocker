@@ -12,11 +12,14 @@ import android.view.WindowManager;
 
 public class DemoActivity extends Activity {
 
+    WindowManager manager;
+    StatusBarTouchInterceptor view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
-        WindowManager manager = ((WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE));
+        manager = ((WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE));
         WindowManager.LayoutParams localLayoutParams = new WindowManager.LayoutParams();
         localLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
         localLayoutParams.gravity = Gravity.TOP;
@@ -33,11 +36,36 @@ public class DemoActivity extends Activity {
                 .getDisplayMetrics().scaledDensity);
         localLayoutParams.format = PixelFormat.TRANSPARENT;
 
-        StatusBarTouchInterceptor view = new StatusBarTouchInterceptor(this);
+        view = new StatusBarTouchInterceptor(this);
 
         manager.addView(view, localLayoutParams);
     }
 
+    @Override
+    protected void onDestroy() {
+        if(manager != null && view != null){
+            try {
+                manager.removeView(view);
+            }
+            catch (IllegalArgumentException iae){
+                iae.printStackTrace();
+            }
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        if(manager != null && view != null){
+            try {
+                manager.removeView(view);
+            }
+            catch (IllegalArgumentException iae){
+                iae.printStackTrace();
+            }
+        }
+        super.onPause();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
