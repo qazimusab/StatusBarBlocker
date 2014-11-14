@@ -4,18 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
-import java.lang.reflect.Method;
-
 
 public class DemoActivity extends Activity {
-
-    public static final String TAG = "Status Bar";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +22,7 @@ public class DemoActivity extends Activity {
         WindowManager.LayoutParams localLayoutParams = new WindowManager.LayoutParams();
         localLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
         localLayoutParams.gravity = Gravity.TOP;
-        localLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|
+        localLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
 
                 // this is to enable the notification to recieve touch events
                 WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL |
@@ -40,7 +35,7 @@ public class DemoActivity extends Activity {
                 .getDisplayMetrics().scaledDensity);
         localLayoutParams.format = PixelFormat.TRANSPARENT;
 
-        CustomViewGroup view = new CustomViewGroup(this);
+        StatusBarTouchInterceptor view = new StatusBarTouchInterceptor(this);
 
         manager.addView(view, localLayoutParams);
     }
