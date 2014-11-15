@@ -6,6 +6,7 @@ import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.WindowManager;
+import com.crashlytics.android.Crashlytics;
 
 
 public class DemoActivity extends Activity {
@@ -16,6 +17,7 @@ public class DemoActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Crashlytics.start(this);
         setContentView(R.layout.activity_demo);
         manager = ((WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE));
 
