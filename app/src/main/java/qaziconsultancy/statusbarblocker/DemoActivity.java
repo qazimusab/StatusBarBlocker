@@ -12,14 +12,30 @@ import android.view.WindowManager;
 
 public class DemoActivity extends Activity {
 
+    @JamStatusBar
+    Context context;
     WindowManager manager;
     StatusBarTouchInterceptor view;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JamStatusBarProcessor.jamStatusBar(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        JamStatusBarProcessor.jamStatusBar(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
-        manager = ((WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE));
+        JamStatusBarProcessor.jamStatusBar(this);
+        context = getBaseContext();
+        /*manager = ((WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE));
 
         WindowManager.LayoutParams localLayoutParams = new WindowManager.LayoutParams();
         localLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
@@ -38,7 +54,7 @@ public class DemoActivity extends Activity {
 
         view = new StatusBarTouchInterceptor(this);
 
-        manager.addView(view, localLayoutParams);
+        manager.addView(view, localLayoutParams);*/
     }
 
     @Override
@@ -56,6 +72,7 @@ public class DemoActivity extends Activity {
 
     @Override
     protected void onPause() {
+        JamStatusBarProcessor.jamStatusBar(this);
         if(manager != null && view != null){
             try {
                 manager.removeView(view);
