@@ -60,8 +60,8 @@ public class DemoActivity extends Activity {
             try {
                 manager.removeView(view);
             }
-            catch (IllegalArgumentException e){
-                e.printStackTrace();
+            catch (IllegalArgumentException iae){
+                iae.printStackTrace();
             }
         }
         super.onPause();
